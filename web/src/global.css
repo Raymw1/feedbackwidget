@@ -5,3 +5,7 @@
 body {
   @apply bg-[#09090A] text-zinc-100;
 }
+
+button {
+  @apply outline-none;
+}
