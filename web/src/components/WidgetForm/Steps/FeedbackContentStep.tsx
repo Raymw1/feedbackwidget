@@ -8,9 +8,10 @@ import { FormEvent, useState } from 'react';
 type FeedbackContentStepProps = {
   feedbackType: FeedbackType;
   handleRestartFeedback: () => void;
+  onFeedbackSent: () => void;
 }
 
-export function FeedbackContentStep({ feedbackType, handleRestartFeedback }: FeedbackContentStepProps) {
+export function FeedbackContentStep({ feedbackType, handleRestartFeedback, onFeedbackSent }: FeedbackContentStepProps) {
   const [screenshot, setScreenshot] = useState<string | null>(null);
   const [comment, setComment] = useState<string>('');
 
@@ -19,6 +20,7 @@ export function FeedbackContentStep({ feedbackType, handleRestartFeedback }: Fee
   function handleSubmitFeedback(event: FormEvent) {
     event.preventDefault();
     console.log({ screenshot, comment });
+    onFeedbackSent();
   }
 
   return (
