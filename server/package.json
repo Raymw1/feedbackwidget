@@ -5,15 +5,19 @@
   "main": "src/server.ts",
   "scripts": {
     "start": "ts-node .",
-    "dev": "ts-node-dev --ignore-watch node_modules ."
+    "dev": "ts-node-dev --ignore-watch node_modules .",
+    "test": "jest"
   },
   "keywords": [],
   "author": "Rayan Wilbert",
   "license": "ISC",
   "devDependencies": {
+    "@swc/jest": "^0.2.23",
     "@types/express": "^4.17.14",
+    "@types/jest": "^29.2.3",
     "@types/node": "^18.11.9",
     "@types/nodemailer": "^6.4.6",
+    "jest": "^29.3.1",
     "prisma": "^4.6.1",
     "ts-node": "^10.9.1",
     "ts-node-dev": "^2.0.0",
