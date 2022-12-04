@@ -8,6 +8,11 @@ import { styles } from './styles';
 import { theme } from '../../theme';
 
 import { Options } from '../Options';
+import { Form } from '../Form';
+
+import { feedbackTypes } from '../../utils/feedbackTypes';
+
+export type FeedbackType = keyof typeof feedbackTypes;
 
 function Widget() {
 
@@ -28,7 +33,8 @@ function Widget() {
         backgroundStyle={styles.modal}
         handleIndicatorStyle={styles.indicator}
       >
-        <Options />
+        {/* <Options /> */}
+        <Form feedbackType='BUG' />
       </BottomSheet>
     </>
   );
