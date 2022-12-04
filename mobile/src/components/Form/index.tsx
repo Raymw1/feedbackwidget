@@ -1,4 +1,4 @@
-import { View, Text, Image } from 'react-native';
+import { View, Text, Image, TextInput } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { ArrowLeft } from 'phosphor-react-native';
 
@@ -27,6 +27,14 @@ export function Form({ feedbackType }: FormProps) {
           <Text style={styles.titleText}>{feedbackTypeInfo.title}</Text>
         </View>
       </View>
+
+      <TextInput
+        multiline
+        style={styles.input}
+        placeholder='Please, tell us what is happening with details...'
+        placeholderTextColor={theme.colors.text_secondary}
+        textAlignVertical='top'
+      />
 
     </View>
   );
