@@ -6,6 +6,7 @@ import { theme } from '../../theme';
 import { feedbackTypes } from '../../utils/feedbackTypes';
 
 import { FeedbackType } from '../Widget';
+import { ScreenshotButton } from '../ScreenshotButton';
 
 import { styles } from './styles';
 
@@ -35,6 +36,10 @@ export function Form({ feedbackType }: FormProps) {
         placeholderTextColor={theme.colors.text_secondary}
         textAlignVertical='top'
       />
+
+      <View style={styles.footer}>
+        <ScreenshotButton onTakeShot={() => { }} onRemoveShot={() => { }} screenshot='' />
+      </View>
 
     </View>
   );
