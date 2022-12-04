@@ -7,6 +7,8 @@ import BottomSheet from '@gorhom/bottom-sheet';
 import { styles } from './styles';
 import { theme } from '../../theme';
 
+import { Options } from '../Options';
+
 function Widget() {
 
   const bottomSheetRef = useRef<BottomSheet>(null);
@@ -25,7 +27,9 @@ function Widget() {
         snapPoints={[1, 280]}
         backgroundStyle={styles.modal}
         handleIndicatorStyle={styles.indicator}
-      ></BottomSheet>
+      >
+        <Options />
+      </BottomSheet>
     </>
   );
 }
