@@ -14,13 +14,15 @@ import { useState } from 'react';
 import { captureScreen } from 'react-native-view-shot';
 
 interface FormProps {
-  feedbackType: FeedbackType;
+  feedbackType: FeedbackType | null;
+  onFeedbackCanceled: () => void;
+  onFeedbackSent: () => void;
 }
 
-export function Form({ feedbackType }: FormProps) {
+export function Form({ feedbackType, onFeedbackSent, onFeedbackCanceled }: FormProps) {
   const [screenshot, setScreenshot] = useState<string | null>(null);
 
-  const feedbackTypeInfo = feedbackTypes[feedbackType];
+  const feedbackTypeInfo = feedbackType && feedbackTypes[feedbackType];
 
   function handleScreenshot() {
     captureScreen({ format: 'jpg', quality: 0.8 }).then(setScreenshot).catch(console.log);
@@ -33,12 +35,12 @@ export function Form({ feedbackType }: FormProps) {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={onFeedbackCanceled}>
           <ArrowLeft size={24} weight='bold' color={theme.colors.text_secondary} />
         </TouchableOpacity>
         <View style={styles.titleContainer}>
-          <Image source={feedbackTypeInfo.image} style={styles.image} />
-          <Text style={styles.titleText}>{feedbackTypeInfo.title}</Text>
+          <Image source={feedbackTypeInfo?.image} style={styles.image} />
+          <Text style={styles.titleText}>{feedbackTypeInfo?.title}</Text>
         </View>
       </View>
 
@@ -47,12 +49,13 @@ export function Form({ feedbackType }: FormProps) {
         style={styles.input}
         placeholder='Please, tell us what is happening with details...'
         placeholderTextColor={theme.colors.text_secondary}
+        autoCorrect={false}
         textAlignVertical='top'
       />
 
       <View style={styles.footer}>
         <ScreenshotButton onTakeShot={handleScreenshot} onRemoveShot={handleScreenshotRemove} screenshot={screenshot} />
-        <Button isLoading={false} />
+        <Button isLoading={false} onPress={onFeedbackSent} />
       </View>
 
     </View>
