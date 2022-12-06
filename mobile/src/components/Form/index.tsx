@@ -1,7 +1,10 @@
+import { useState } from 'react';
 import { View, Text, Image, TextInput } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { ArrowLeft } from 'phosphor-react-native';
+import * as FileSystem from 'expo-file-system';
 
+import { styles } from './styles';
 import { theme } from '../../theme';
 import { feedbackTypes } from '../../utils/feedbackTypes';
 
@@ -9,8 +12,6 @@ import { FeedbackType } from '../Widget';
 import { ScreenshotButton } from '../ScreenshotButton';
 import { Button } from '../Button';
 
-import { styles } from './styles';
-import { useState } from 'react';
 import { captureScreen } from 'react-native-view-shot';
 import { api } from '../../libs/api';
 
@@ -36,12 +37,14 @@ export function Form({ feedbackType, onFeedbackSent, onFeedbackCanceled }: FormP
   }
 
   async function handleSendFeedback() {
-    if (isSendingFeedback) return;
+    if (isSendingFeedback || comment.trim() === '') return;
     setIsSendingFeedback(true);
+    const screenshotBase64 = screenshot && await FileSystem.readAsStringAsync(screenshot, { encoding: 'base64' });
+
     try {
       await api.post('/feedbacks', {
         type: feedbackType,
-        screenshot,
+        screenshot: `data:image/png;base64, ${screenshotBase64}`,
         comment,
       });
       onFeedbackSent();
